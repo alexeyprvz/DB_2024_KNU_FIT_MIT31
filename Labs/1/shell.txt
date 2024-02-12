@@ -1,0 +1,19 @@
+postgres=# \! chcp 1251      
+Текущая кодовая страница: 1251
+postgres=# create database vacuum_cleaners_db;
+CREATE DATABASE
+postgres=# create user user_1 with password '1111';
+CREATE ROLE
+postgres=# create user user_2 with password '2222';
+CREATE ROLE
+postgres=# \c vacuum_cleaners_db;
+You are now connected to database "vacuum_cleaners_db" as user "postgres".
+vacuum_cleaners_db=# GRANT ALL ON DATABASE vacuum_cleaners_db to user_1;
+GRANT
+vacuum_cleaners_db=# GRANT ALL ON SCHEMA public TO user_1;
+GRANT
+vacuum_cleaners_db=# GRANT USAGE ON SCHEMA public TO user_2;
+GRANT
+vacuum_cleaners_db=# GRANT SELECT ON ALL TABLES IN SCHEMA public TO user_2;
+GRANT
+vacuum_cleaners_db=#
