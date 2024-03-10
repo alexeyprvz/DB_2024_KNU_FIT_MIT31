@@ -691,9 +691,12 @@ SELECT *
 FROM "Type" t
 WHERE
     t."filtration_system_type" NOT LIKE 'HEPA'
--- 90. Отримати всі бренди пилососів, крім країни походження Німеччина:
-SELECT * FROM "Brand" b WHERE b."brand_country" NOT LIKE 'Germany'
--- 91. Показати моделі пилососів, в яких потужність, поділена на 100, більше ваги:
+    -- 90. Отримати всі бренди пилососів, крім країни походження Німеччина:
+SELECT *
+FROM "Brand" b
+WHERE
+    b."brand_country" NOT LIKE 'Germany'
+    -- 91. Показати моделі пилососів, в яких потужність, поділена на 100, більше ваги:
 SELECT "name", "power_w", "weight_kg"
 FROM "VacuumCleaner"
 WHERE ("power_w" / 100) > "weight_kg";
@@ -767,3 +770,16 @@ SELECT "name", "power_w"
 FROM "VacuumCleaner"
 WHERE
     "power_w" % 100 = 0;
+
+SELECT * FROM "Brand"
+--К-ть брендів які випуск типи пилесосів id=6
+
+SELECT COUNT(DISTINCT b."brand_name") as "q_brands", t."type_name"
+FROM
+    "VacuumCleaner" v
+    JOIN "Brand" b ON v."brand_id" = b."brand_id"
+    JOIN "Type" t ON v."type_id" = t."type_id"
+WHERE
+    t."type_id" = 6
+GROUP BY
+    t."type_name"
